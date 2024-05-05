@@ -10,15 +10,13 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.codegen.ClientOptInput;
-import org.openapitools.codegen.CodegenConfig;
 import org.openapitools.codegen.DefaultGenerator;
-import org.openapitools.codegen.config.GeneratorSettings;
 import org.openapitools.codegen.languages.JavaClientCodegen;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class CloudflareTest {
+public class JavaClientCodegenTest {
   private JavaClientCodegen codegen;
 
   @BeforeEach
@@ -38,7 +36,7 @@ public class CloudflareTest {
     generateJavaClient("https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json");
   }
 
-  private void generateJavaClient(String url) {
+  private void generateJavaClient(final String url) {
     ParseOptions parseOpts = new ParseOptions();
     parseOpts.setResolveFully(true);
     OpenAPIParser parser = new OpenAPIParser();
