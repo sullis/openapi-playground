@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.openapitools.codegen.ClientOptInput;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.languages.JavaClientCodegen;
@@ -20,8 +21,10 @@ public class JavaClientCodegenTest {
   private JavaClientCodegen codegen;
 
   @BeforeEach
-  void beforeEachTest() {
-    final File outputDir = new File("./target/test-codegen-" + System.currentTimeMillis());
+  void beforeEachTest(TestInfo testInfo) {
+    final String testClass = testInfo.getTestClass().get().getSimpleName();
+    final String testMethod = testInfo.getTestMethod().get().getName();
+    final File outputDir = new File("./target/" + testClass + "-" + testMethod + "-" + System.currentTimeMillis());
     outputDir.mkdirs();
     codegen = new JavaClientCodegen();
     codegen.setUseGzipFeature(true);
