@@ -60,7 +60,7 @@ public class JavaClientCodegenTest {
 
     List<File> generatedFiles = generator.opts(generatorInput).generate();
     for (File f : generatedFiles) {
-      System.out.println(f);
+      assertThat(f).isNotEmpty();
     }
   }
 }
