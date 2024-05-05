@@ -27,7 +27,6 @@ public class JavaClientCodegenTest {
     final File outputDir = new File("./target/" + testClass + "-" + testMethod + "-" + System.currentTimeMillis());
     outputDir.mkdirs();
     codegen = new JavaClientCodegen();
-    codegen.setUseGzipFeature(true);
     codegen.setDoNotUseRx(true);
     codegen.setLibrary(JavaClientCodegen.APACHE);
     codegen.setDateLibrary("java8");
