@@ -16,6 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class CloudflareTest {
+  static {
+    Integer max = 10 * 1024 * 1024;
+    System.setProperty("maxYamlCodePoints", max.toString());
+  }
+
   private JavaClientCodegen codegen;
 
   @BeforeEach
