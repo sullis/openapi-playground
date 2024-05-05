@@ -31,8 +31,9 @@ public class CloudflareTest {
   void generateJavaClient() {
     final String url = "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.yaml";
     ParseOptions parseOpts = new ParseOptions();
-    // parseOpts.setResolveFully(true);
-    SwaggerParseResult result = new OpenAPIParser().readContents(url, Collections.EMPTY_LIST, parseOpts);
+    parseOpts.setResolveFully(true);
+    OpenAPIParser parser = new OpenAPIParser();
+    SwaggerParseResult result = parser.readLocation(url, Collections.emptyList(), parseOpts);
     assertThat(result.getMessages()).isEmpty();
 
     DefaultGenerator generator = new DefaultGenerator();
