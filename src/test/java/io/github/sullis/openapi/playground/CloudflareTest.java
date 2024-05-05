@@ -9,40 +9,54 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openapitools.codegen.ClientOptInput;
+import org.openapitools.codegen.CodegenConfig;
 import org.openapitools.codegen.DefaultGenerator;
+import org.openapitools.codegen.config.GeneratorSettings;
 import org.openapitools.codegen.languages.JavaClientCodegen;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class CloudflareTest {
-  static {
-    Integer max = 10 * 1024 * 1024;
-    System.setProperty("maxYamlCodePoints", max.toString());
-  }
-
   private JavaClientCodegen codegen;
 
   @BeforeEach
   void beforeEachTest() {
+    File outputDir = new File("./target/codegen-" + System.currentTimeMillis());
+    outputDir.mkdirs();
     codegen = new JavaClientCodegen();
     codegen.setUseGzipFeature(true);
     codegen.setDoNotUseRx(true);
-    // codegen.setLibrary("foobar");
+    codegen.setLibrary(JavaClientCodegen.APACHE);
     codegen.setDateLibrary("java8");
+    codegen.setOutputDir(outputDir.toString());
   }
 
   @Test
-  void generateJavaClient() {
-    final String url = "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.yaml";
+  void generateCloudflareClient() {
+    generateJavaClient("https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json");
+  }
+
+  private void generateJavaClient(String url) {
     ParseOptions parseOpts = new ParseOptions();
     parseOpts.setResolveFully(true);
     OpenAPIParser parser = new OpenAPIParser();
     SwaggerParseResult result = parser.readLocation(url, Collections.emptyList(), parseOpts);
-    assertThat(result.getMessages()).isEmpty();
+    OpenAPI openapi = result.getOpenAPI();
+
+    assertThat(openapi).isNotNull();
 
     DefaultGenerator generator = new DefaultGenerator();
-    List<File> generatedFiles = generator.generate();
+
+    codegen.setModelPackage("foobarxyz");
+    codegen.setApiPackage("foobarxyz");
+    codegen.setInvokerPackage("foobarxyz");
+
+    ClientOptInput generatorInput = new ClientOptInput();
+    generatorInput.openAPI(openapi).config(codegen);
+
+    List<File> generatedFiles = generator.opts(generatorInput).generate();
     for (File f : generatedFiles) {
       System.out.println(f);
     }
