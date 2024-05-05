@@ -21,7 +21,7 @@ public class JavaClientCodegenTest {
 
   @BeforeEach
   void beforeEachTest() {
-    File outputDir = new File("./target/codegen-" + System.currentTimeMillis());
+    final File outputDir = new File("./target/test-codegen-" + System.currentTimeMillis());
     outputDir.mkdirs();
     codegen = new JavaClientCodegen();
     codegen.setUseGzipFeature(true);
