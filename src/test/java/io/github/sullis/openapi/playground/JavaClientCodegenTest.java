@@ -36,10 +36,10 @@ public class JavaClientCodegenTest {
 
   @Test
   void generateCloudflareClient() {
-    generateJavaClient("https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json");
+    generateJavaClient("cloudflare", "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json");
   }
 
-  private void generateJavaClient(final String url) {
+  private void generateJavaClient(final String name, final String url) {
     ParseOptions parseOpts = new ParseOptions();
     parseOpts.setResolveFully(true);
     OpenAPIParser parser = new OpenAPIParser();
@@ -50,9 +50,10 @@ public class JavaClientCodegenTest {
 
     DefaultGenerator generator = new DefaultGenerator();
 
-    codegen.setModelPackage("foobarxyz");
-    codegen.setApiPackage("foobarxyz");
-    codegen.setInvokerPackage("foobarxyz");
+    final String basePackage = "codegen." + name.toLowerCase() + ".client";
+    codegen.setModelPackage(basePackage + ".model");
+    codegen.setApiPackage(basePackage + ".api");
+    codegen.setInvokerPackage(basePackage);
 
     ClientOptInput generatorInput = new ClientOptInput();
     generatorInput.openAPI(openapi).config(codegen);
