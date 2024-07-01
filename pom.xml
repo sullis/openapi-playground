@@ -16,7 +16,7 @@
   </licenses>
 
   <properties>
-    <openapi-generator.version>7.5.0</openapi-generator.version>
+    <openapi-generator.version>7.6.0</openapi-generator.version>
     <logback.version>1.5.6</logback.version>
     <slf4j.version>2.0.13</slf4j.version>
     <skip.tests>false</skip.tests>
