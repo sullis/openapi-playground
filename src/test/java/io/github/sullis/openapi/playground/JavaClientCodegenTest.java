@@ -32,7 +32,8 @@ public class JavaClientCodegenTest {
   );
 
   private static final Map<String, String> OPENAPI_SPECS = Map.of(
-   "cloudflare", "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
+   "cloudflare", "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json",
+   "flink-sql-gateway", "https://nightlies.apache.org/flink/flink-docs-master/generated/rest_v2_sql_gateway.yml"
   );
 
   static private Stream<Arguments> targets() {
