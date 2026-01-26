@@ -17,7 +17,7 @@
 
   <properties>
     <openapi-generator.version>7.19.0</openapi-generator.version>
-    <logback.version>1.5.25</logback.version>
+    <logback.version>1.5.26</logback.version>
     <slf4j.version>2.0.17</slf4j.version>
     <skip.tests>false</skip.tests>
   </properties>
